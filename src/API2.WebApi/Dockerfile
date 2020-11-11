@@ -1,14 +1,12 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["src/API2.WebApi/API2.WebApi.csproj", "src/API2.WebApi/"]
+COPY ["API2.WebApi.csproj", "src/API2.WebApi/"]
 RUN dotnet restore "src/API2.WebApi/API2.WebApi.csproj"
-COPY . .
+COPY . "src/API2.WebApi"
 WORKDIR "/src/src/API2.WebApi"
 RUN dotnet build "API2.WebApi.csproj" -c Release -o /app/build
 
